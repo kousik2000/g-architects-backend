@@ -13,14 +13,16 @@ app.use(cors({
 // Middleware to parse JSON body
 app.use(express.json());
 
-// Nodemailer transporter configuration
+const base64Encoded = "SGVsbG8sIFdvcmxkIQ==";
+const decodedStr = Buffer.from(base64Encoded, 'base64').toString('utf-8');
+
 const transporter = nodemailer.createTransport({
   host: 'smtpout.secureserver.net',
   port: 465,
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: 'Saichand765899#',
+    pass: process.env.EMAIL_PASS,
   },
 });
 
