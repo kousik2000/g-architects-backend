@@ -7,7 +7,7 @@ require('dotenv').config();
 
 app.use(cors());
 app.use(cors({
-  origin: ['https://192.168.0.105:4200', 'https://garchitectsanddevelopers.in'],  // Allowed domains
+  origin: ['https://192.168.0.105:4200', 'https://garchitectsanddevelopers.in', 'http://localhost:4200/'],  // Allowed domains
   methods: ['GET', 'POST'],  // Allowed HTTP methods
 }));
 // Middleware to parse JSON body
@@ -20,15 +20,15 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    pass: 'Saichand765899#',
   },
 });
 
 // API to send the email after form submission
 app.post('/send-email', async (req, res) => {
   console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS )
-  const { name, email, message } = req.body;
-
+  const { name, phone, email, message,requirementType,areaValue,areaUnit } = req.body;
+  console.log(name, email,message )
   // Email to the business (from user's email)
   const mailToBusiness = {
     from: 'contact@garchitectsanddevelopers.in', // Set the valid from address
@@ -53,7 +53,7 @@ app.post('/send-email', async (req, res) => {
 const sendReplyEmail = async (name, userEmail) => {
   const mailToUser = {
     from: 'contact@garchitectsanddevelopers.in', // Set the valid from address
-    to: 'thirupathiannamaneni20@gmail.com', 
+    to: 'kousik.ramachandruni@gmail.com', 
     subject: 'Thank You for Contacting Us!',
     html: `
       <h2>Hello,</h2>
