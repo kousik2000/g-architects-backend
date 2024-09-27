@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thank You for Your Inquiry</title>
+<style>
+/* Basic styling */
+body {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the main content */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header section */
+.header {
+    background-color: #0A271D;
+    color: white;
+    padding: 20px;
+    display:flex;
+    justify-content:flex-start;
+}
+
+/* Footer section */
+.footer {
+    background-color: #0A271D;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Social media links */
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Logo */
+.logo {
+    display: block;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header" >
+        <img src="https://i.ibb.co/Stkqqbk/LOGO-WATERMARK-NEW-WHITE.png" style="height:30px;" alt="Your Company Logo" class="logo">
+    </div>
+    <p>Hey Architects you got a new inquiry from your website</p>
+    <p>Here is a summary of the information you provided:</p>
+    <ul>
+        <li>Name: {{name}}</li>
+        <li>Phone: {{phone}}</li>
+        <li>Email: {{email}}</li>
+        <li>Message: {{message}}</li>
+        <li>Requirement Type: {{requirementType}}</li>
+        <li>Area Value: {{areaValue}} {{areaUnit}}</li>
+    </ul>
+    <div class="footer">
+        © G Architects and Developers. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
