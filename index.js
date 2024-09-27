@@ -2,6 +2,8 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');  // Import the CORS package
 const app = express();
+const fs = require('fs');
+const path = require('path');
 const PORT = 3000;
 require('dotenv').config();
 
@@ -30,18 +32,27 @@ const transporter = nodemailer.createTransport({
 app.post('/send-email', async (req, res) => {
   console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS )
   const { name, phone, email, message,requirementType,areaValue,areaUnit } = req.body;
-  console.log(name, email,message )
+  
+  const templatePath = path.join(__dirname, 'replyemail.html');
+  let contactmail = fs.readFileSync(templatePath, 'utf-8');
+  contactmail = contactmail.replace('{{name}}', name);
+  contactmail = contactmail.replace('{{phone}}', phone);
+  contactmail = contactmail.replace('{{email}}', email);
+  contactmail = contactmail.replace('{{message}}', message);
+  contactmail = contactmail.replace('{{requirementType}}', requirementType);
+  contactmail = contactmail.replace('{{areaValue}}', areaValue);
+  contactmail = contactmail.replace('{{areaUnit}}', areaUnit);
   // Email to the business (from user's email)
   const mailToBusiness = {
-    from: 'contact@garchitectsanddevelopers.in', // Set the valid from address
+    from: 'contact@garchitectsanddevelopers.in',
     to: 'contact@garchitectsanddevelopers.in',
     subject: `New Contact Form Submission from ${name}`,
-    text: message,
+    html: contactmail
   };
 
   try {
     await transporter.sendMail(mailToBusiness);
-    await sendReplyEmail(name, email);  // Await the reply email function
+    await sendReplyEmail(name, phone, email, message,requirementType,areaValue,areaUnit);
 
     // Respond with success message
     return res.status(200).json({ success: true, message: 'Email sent successfully!' });
@@ -52,17 +63,22 @@ app.post('/send-email', async (req, res) => {
 });
 
 // Function to send reply email to the user
-const sendReplyEmail = async (name, userEmail) => {
+const sendReplyEmail = async (name, phone, email, message,requirementType,areaValue,areaUnit) => {
+  const templatePath = path.join(__dirname, 'replyemail.html');
+  let htmlContent = fs.readFileSync(templatePath, 'utf-8');
+  htmlContent = htmlContent.replace('{{name}}', name);
+  htmlContent = htmlContent.replace('{{name}}', name);
+  htmlContent = htmlContent.replace('{{phone}}', phone);
+  htmlContent = htmlContent.replace('{{email}}', email);
+  htmlContent = htmlContent.replace('{{message}}', message);
+  htmlContent = htmlContent.replace('{{requirementType}}', requirementType);
+  htmlContent = htmlContent.replace('{{areaValue}}', areaValue);
+  htmlContent = htmlContent.replace('{{areaUnit}}', areaUnit);
   const mailToUser = {
     from: 'contact@garchitectsanddevelopers.in', // Set the valid from address
     to: 'kousik.ramachandruni@gmail.com', 
     subject: 'Thank You for Contacting Us!',
-    html: `
-      <h2>Hello,</h2>
-      <p>An auto created mail that comes from website. 'kousik'</p>
-      <p>Best regards,</p>
-      <p>Your Business Team</p>
-    `, 
+    html:htmlContent 
   };
 
   try {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thank You for Your Inquiry</title>
+<style>
+/* Basic styling */
+body {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for the main content */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header section */
+.header {
+    background-color: #0A271D;
+    color: white;
+    padding: 20px;
+    display:flex;
+    justify-content:flex-start;
+}
+
+/* Footer section */
+.footer {
+    background-color: #0A271D;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Social media links */
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Logo */
+.logo {
+    display: block;
+    margin: 0 auto;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header" >
+        <img src="https://i.ibb.co/Stkqqbk/LOGO-WATERMARK-NEW-WHITE.png" style="height:30px;" alt="Your Company Logo" class="logo">
+    </div>
+    <p>Dear {{name}},</p>
+    <p>Thank you for contacting G Architects & Developers</p>
+    <p>We have received your inquiry and will respond to you as soon as possible.</p>
+    <p>Here is a summary of the information you provided:</p>
+    <ul>
+        <li>Name: {{name}}</li>
+        <li>Phone: {{phone}}</li>
+        <li>Email: {{email}}</li>
+        <li>Message: {{message}}</li>
+        <li>Requirement Type: {{requirementType}}</li>
+        <li>Area Value: {{areaValue}}</li>
+        <li>Area Unit: {{areaUnit}}</li>
+    </ul>
+    <p>Please feel free to contact us again if you have any further questions.</p>
+    <p>You can also find us on social media:</p>
+    <ul class="social-links">
+        <li><a href="https://www.youtube.com/@ar.saichandu/videos" target="_blank">YouTube</a></li>
+        <li><a href="https://www.instagram.com/g_designers_developers/?igshid=MzRlODBiNWFlZA%3D%3D" target="_blank">Instagram</a></li>
+        <li><a href="tel:7658999781" target="_blank">Phone</a></li>
+        <li><a href="mailto:contact@garchitectsanddevelopers.in" target="_blank">Mail us</a></li>
+    </ul>
+    <div class="footer">
+        © G Architects and Developers. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
