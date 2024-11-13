@@ -4,8 +4,17 @@ const cors = require('cors');  // Import the CORS package
 const app = express();
 const fs = require('fs');
 const path = require('path');
+const mysql = require('mysql2');
 const PORT = 3000;
 require('dotenv').config();
+
+// const connection  = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "garchitects",
+//   connectionLimit: 10
+// })
 
 app.use(cors());
 app.use(cors({
@@ -15,6 +24,14 @@ app.use(cors({
 // Middleware to parse JSON body
 app.use(express.json());
 
+// connection.connect((err) => {
+//   if (err) {
+//     console.error('Error connecting to the database:', err.stack);
+//     return;
+//   }
+//   console.log('Connected to the database as ID ' + connection.threadId);
+// });
+
 const base64Encoded = "SGVsbG8sIFdvcmxkIQ==";
 const decodedStr = Buffer.from(base64Encoded, 'base64').toString('utf-8');
 
@@ -23,14 +40,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: 'contact@garchitectsanddevelopers.in',
+    pass: 'Saichand765899#',
   },
 });
 
 // API to send the email after form submission
 app.post('/send-email', async (req, res) => {
-  console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS )
+  // console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS )
   const { name, phone, email, message,requirementType,areaValue,areaUnit } = req.body;
   
   const templatePath = path.join(__dirname, 'replyemail.html');
@@ -88,6 +105,14 @@ const sendReplyEmail = async (name, phone, email, message,requirementType,areaVa
     console.error('Error sending reply email: ', err);
   }
 };
+
+app.get('/getProjects', async (req, res)=>{
+  connection.query('select * from projects', (error, results, fields) => {
+    if (error) throw error;
+    console.log('Results:', results);
+  });
+})
+
 
 // Start the server
 app.listen(PORT, () => {
